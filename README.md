@@ -16,6 +16,9 @@ CardSense is an advanced AI-powered web application that transforms complex cred
 
 ## 🚀 Technical System Overview
 
+<img width="1014" height="722" alt="- visual selection(6)" src="https://github.com/user-attachments/assets/68dc64c8-40d2-4334-b2ab-d982322d42f7" />
+
+
 This project integrates document processing, AI-powered analysis, and interactive chat capabilities to deliver comprehensive credit card statement insights. Below is a detailed breakdown of the components:
 
 ### 1. Intelligent OCR & Data Extraction Engine
@@ -100,6 +103,8 @@ I built a robust backend with comprehensive session handling:
 <img width="1788" height="973" alt="Screenshot From 2025-10-23 18-02-38" src="https://github.com/user-attachments/assets/a70432c4-2ad1-43bd-b36f-f5e8aeb59aea" />
 
 <img width="1920" height="1009" alt="Screenshot From 2025-10-23 18-02-57" src="https://github.com/user-attachments/assets/72f815ee-ad3e-46a4-9ee5-d6ef3694bb49" />
+
+<img width="927" height="791" alt="- visual selection(8)" src="https://github.com/user-attachments/assets/74747f7e-40c1-4740-a10e-a94b7ebe1851" />
 
 
 
