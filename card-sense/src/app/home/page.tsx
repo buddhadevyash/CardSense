@@ -154,7 +154,7 @@ export default function HomePage() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   // --- Utility Functions ---
-  const API_BASE_URL = "/api/chat"; // Using Next.js API routes
+  const API_BASE_URL = "https://cardsense.onrender.com"; // Updated to use Render deployment URL
 
   const downloadJson = (data: object | null, filename: string) => {
     if (!data) {
@@ -235,7 +235,7 @@ export default function HomePage() {
   const fetchOcr10Data = async (sessionId: string) => {
     setIsLoading10Keys(true);
     try {
-      // Fetch using the GET endpoint of the Next.js API route
+      // Fetch using the GET endpoint
       const response = await fetch(`${API_BASE_URL}/ocr-10?session_id=${sessionId}`);
       if (!response.ok) throw new Error("Failed to fetch 10 key parameters.");
       const data: Ocr10Response = await response.json();
@@ -269,17 +269,16 @@ export default function HomePage() {
     formData.append("file", file);
 
     try {
-      // Call the Next.js API route for OCR processing
+      // First, call /ocr to get the session_id and full data
       const ocrResponse = await fetch(`${API_BASE_URL}/ocr`, {
         method: "POST",
         body: formData,
-        // Ensure your API route can handle FormData
       });
 
-      if (!ocrResponse.ok) throw new Error("Network response for /ocr was not ok. Check API route implementation.");
+      if (!ocrResponse.ok) throw new Error("Network response for /ocr was not ok. Check if the backend is running.");
 
       const ocrResult: OcrResponse = await ocrResponse.json();
-      if (ocrResult.success && ocrResult.session_id) {
+      if (ocrResult.success) {
         setOcrData(ocrResult); // Store the full OCR result
         setSessionId(ocrResult.session_id);
         // Automatically fetch the 10 keys using the obtained session ID
@@ -316,7 +315,6 @@ export default function HomePage() {
     setIsLoadingAI(true);
 
     try {
-      // Use the correct Next.js API route endpoints
       const endpoint = isAttachmentQuery ? `${API_BASE_URL}/chatwithpdf` : `${API_BASE_URL}/chat`;
       const body = { question: inputValue, session_id: sessionId || undefined };
 
