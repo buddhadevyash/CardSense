@@ -154,7 +154,7 @@ export default function HomePage() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   // --- Utility Functions ---
-  const API_BASE_URL = "https://cardsense.onrender.com"; // Updated to use Render deployment URL
+  const API_BASE_URL = "https://cardsense.onrender.com"; // Corrected to use Render deployment URL
 
   const downloadJson = (data: object | null, filename: string) => {
     if (!data) {
@@ -596,7 +596,7 @@ export default function HomePage() {
                   {msg.isAttachment && (<div className="mb-1 flex items-center gap-1 text-xs text-gray-300"><Paperclip className="h-3 w-3" /><span>attachment query</span></div>)}
                   {/* Render AI response using ReactMarkdown with Tailwind Prose applied to container */}
                   {msg.sender === 'ai' ? (
-                     <div className="prose prose-sm prose-invert max-w-none">
+                     <div className="prose prose-sm prose-invert max-w-none"> {/* Added container with prose classes */}
                          <ReactMarkdown>{msg.text}</ReactMarkdown>
                      </div>
                   ) : (
