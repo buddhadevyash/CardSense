@@ -154,7 +154,7 @@ export default function HomePage() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   // --- Utility Functions ---
-  const API_BASE_URL = "http://127.0.0.1:8000"; // Using FastAPI backend URL
+  const API_BASE_URL = "/api/chat"; // Using Next.js API routes
 
   const downloadJson = (data: object | null, filename: string) => {
     if (!data) {
@@ -235,7 +235,7 @@ export default function HomePage() {
   const fetchOcr10Data = async (sessionId: string) => {
     setIsLoading10Keys(true);
     try {
-      // Fetch using the GET endpoint
+      // Fetch using the GET endpoint of the Next.js API route
       const response = await fetch(`${API_BASE_URL}/ocr-10?session_id=${sessionId}`);
       if (!response.ok) throw new Error("Failed to fetch 10 key parameters.");
       const data: Ocr10Response = await response.json();
@@ -269,16 +269,17 @@ export default function HomePage() {
     formData.append("file", file);
 
     try {
-      // First, call /ocr to get the session_id and full data
+      // Call the Next.js API route for OCR processing
       const ocrResponse = await fetch(`${API_BASE_URL}/ocr`, {
         method: "POST",
         body: formData,
+        // Ensure your API route can handle FormData
       });
 
-      if (!ocrResponse.ok) throw new Error("Network response for /ocr was not ok. Check if the backend is running.");
+      if (!ocrResponse.ok) throw new Error("Network response for /ocr was not ok. Check API route implementation.");
 
       const ocrResult: OcrResponse = await ocrResponse.json();
-      if (ocrResult.success) {
+      if (ocrResult.success && ocrResult.session_id) {
         setOcrData(ocrResult); // Store the full OCR result
         setSessionId(ocrResult.session_id);
         // Automatically fetch the 10 keys using the obtained session ID
@@ -315,6 +316,7 @@ export default function HomePage() {
     setIsLoadingAI(true);
 
     try {
+      // Use the correct Next.js API route endpoints
       const endpoint = isAttachmentQuery ? `${API_BASE_URL}/chatwithpdf` : `${API_BASE_URL}/chat`;
       const body = { question: inputValue, session_id: sessionId || undefined };
 
@@ -412,6 +414,7 @@ export default function HomePage() {
 
   // --- Render Component ---
   return (
+    // font-mono should be inherited from layout.tsx
     <div className="grid h-full w-full grid-cols-1 p-4 md:grid-cols-2 md:gap-8">
       {/* Left Column: File Upload & OCR View */}
       <div className="flex h-full flex-col items-center justify-start overflow-y-auto pr-2">
@@ -593,11 +596,11 @@ export default function HomePage() {
               <div key={index} className={cn("flex animate-fade-in items-end gap-2", msg.sender === "user" ? "justify-end" : "justify-start")}>
                 <div className={cn("max-w-md rounded-2xl px-4 py-2", msg.sender === "user" ? "rounded-br-none bg-[#F5AD18] text-[#561530]" : "rounded-bl-none bg-[#811844] text-white")}>
                   {msg.isAttachment && (<div className="mb-1 flex items-center gap-1 text-xs text-gray-300"><Paperclip className="h-3 w-3" /><span>attachment query</span></div>)}
-                  {/* Render AI response using ReactMarkdown with Tailwind Prose */}
+                  {/* Render AI response using ReactMarkdown with Tailwind Prose applied to container */}
                   {msg.sender === 'ai' ? (
-                     <ReactMarkdown /* Removed className */ >
-                       {msg.text}
-                     </ReactMarkdown>
+                     <div className="prose prose-sm prose-invert max-w-none">
+                         <ReactMarkdown>{msg.text}</ReactMarkdown>
+                     </div>
                   ) : (
                      <p>{msg.text}</p>
                   )}
