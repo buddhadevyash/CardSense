@@ -104,7 +104,8 @@ I built a robust backend with comprehensive session handling:
 
 <img width="1920" height="1009" alt="Screenshot From 2025-10-23 18-02-57" src="https://github.com/user-attachments/assets/72f815ee-ad3e-46a4-9ee5-d6ef3694bb49" />
 
-<img width="927" height="791" alt="- visual selection(8)" src="https://github.com/user-attachments/assets/74747f7e-40c1-4740-a10e-a94b7ebe1851" />
+<img width="818" height="716" alt="- visual selection(11)" src="https://github.com/user-attachments/assets/9641570c-e7fe-484a-bda6-e197773b4767" />
+
 
 
 
